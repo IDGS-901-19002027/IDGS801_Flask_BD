@@ -29,6 +29,35 @@ def index():
         db.session.commit()
     return render_template('index.html', form = create_form)
 
+@app.route("/ABCompleto", methods=['GET', 'POST'])
+def ABCompleto():
+    create_form = forms.UserForm(request.form)
+    # Select * from alumnos
+    alumnos = Alumnos.query.all()
+    return render_template('ABCompleto.html', form=create_form, alumnos=alumnos)
+
+@app.route("/modificar", methods=['GET', 'POST'])
+def modificar():
+    create_form = forms.UserForm(request.form)
+    if request.method=='GET':
+        id = request.args.get('id')
+        # Select * from alumnos where id==id    
+        alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+        create_form.nombre.data=alum1.nombre
+        create_form.apellidos.data=alum1.apellidos
+        create_form.email.data=alum1.email
+
+    if request.method=='POST':
+        id = request.args.get('id')
+        # Select * from alumnos where id==id    
+        alum=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+        alum1.nombre = create_form.nombre.data
+        alum1.apellidos = create_form.nombre.data
+        alum1.email = create_form.nombre.data
+        db.session.add(alum)
+        db.session.commit()
+
+
 if __name__ == '__main__':
     # Aplicar la seguridad CSRF al inicializar la aplicación
     csrf.init_app(app)
