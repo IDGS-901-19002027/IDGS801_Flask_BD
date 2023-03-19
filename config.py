@@ -10,5 +10,5 @@ class Config(object):
 class DevelopmentConfig(Config):
     DEBUG = True
     # Cadena de conexión de la BD // NombreUsuario:Password
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@127.0.0.1/idgs801'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@127.0.0.1/idgs801'
     SQLALCHEMY_TRACK_MODIFICATION = False
